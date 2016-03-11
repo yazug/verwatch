@@ -1,6 +1,6 @@
+import os
 from verwatch.fetch import VersionFetcher
 from verwatch.util import run
-import os
 
 
 class GitFetcher(VersionFetcher):
@@ -17,8 +17,9 @@ class GitFetcher(VersionFetcher):
         if not options or 'repo_base' not in options:
             raise ValueError("'repo_base' option not supplied to git fetcher.")
         if not options or 'id' not in options:
-            raise RuntimeError("'id' option not supplied to git fetcher. "
-                             "verwatch is supposed to supply this internally.")
+            raise RuntimeError(
+                "'id' option not supplied to git fetcher. "
+                "verwatch is supposed to supply this internally.")
         self.paths = kwargs['paths']
         self.repo_base = options['repo_base']
         # 'id' is supplied by verwatch
@@ -37,9 +38,7 @@ class GitFetcher(VersionFetcher):
             raise RuntimeError("git clone failed: %s" % err)
 
     def _prepare_repo(self, pkg_name):
-        """
-        Clone/fetch repo and chdir into it.
-        """
+        """Clone/fetch repo and chdir into it. """
         repo_dir = "%s/%s" % (self.repo_base_dir, pkg_name)
         if os.path.isdir(repo_dir):
             os.chdir(repo_dir)
@@ -55,7 +54,7 @@ class GitFetcher(VersionFetcher):
     def _get_version(self, pkg_name, branch):
         try:
             self._prepare_repo(pkg_name)
-        except RuntimeError, e:
+        except RuntimeError as e:
             return {'error': e.args[0], 'cmd': self.cmd}
         ver = {}
         self.cmd = 'git describe --abbrev=0 --tags origin/%s' % branch
