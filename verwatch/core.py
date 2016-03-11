@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-import util
 import fetch
+import util
 
+import blessings
 import re
 import yaml
-import blessings
 
 
 VERSION = '0.6'
@@ -125,7 +125,7 @@ def filter_pkg_conf_existing_only(pkg_conf, vers):
                     repo_ = pkg_[repo_name]
                     if branch not in repo_:
                         return False
-                    ver_ = repo_[branch]
+                    # ver_ = repo_[branch]
                     return True
 
                 repo['branches'] = filter(_version_available, repo['branches'])
@@ -156,7 +156,7 @@ def fetch_versions(pkg_conf, paths, vers=None,
                 repo_name = repo['repo']
                 repo_title = util.get_repo_title(pkg_conf, repo_name)
                 pp.puts(repo_title, shift=1)
-                if not repo_name in pkgd:
+                if repo_name not in pkgd:
                     pkgd[repo_name] = {}
                 repod = pkgd[repo_name]
                 for branch in repo['branches']:

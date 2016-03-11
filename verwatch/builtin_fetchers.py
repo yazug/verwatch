@@ -5,7 +5,7 @@ import fetchers.koji
 import fetchers.repoquery
 
 try:
-    import fetchers.distgit
+    import fetchers.distgit  # noqa
 except ImportError:
     # TODO: Something more sofisticated would be nice.
     print "Failed to import distgit fetcher. rpm module missing?"
