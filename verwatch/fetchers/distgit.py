@@ -1,9 +1,7 @@
-from verwatch.fetch import VersionFetcher
-from verwatch.fetchers.git import GitFetcher
-from verwatch.util import run, is_version
-import rpm
 import os
-import re
+import rpm
+from verwatch.fetchers.git import GitFetcher
+from verwatch.util import run
 
 
 class DistGitFetcher(GitFetcher):
@@ -24,11 +22,11 @@ class DistGitFetcher(GitFetcher):
         try:
             self._prepare_repo(pkg_name)
             self._checkout(branch)
-        except RuntimeError, e:
+        except RuntimeError as e:
             return {'error': e.args[0], 'cmd': self.cmd}
 
-        specs = [f for f in os.listdir('.') \
-                if os.path.isfile(f) and f.endswith('.spec')]
+        specs = [f for f in os.listdir('.')
+                 if os.path.isfile(f) and f.endswith('.spec')]
         if not specs:
             return {'error': "No .spec files found."}
         if len(specs) != 1:
@@ -36,7 +34,7 @@ class DistGitFetcher(GitFetcher):
         spec_fn = specs[0]
         try:
             spec = rpm.ts().parseSpec(spec_fn)
-        except ValueError, e:
+        except ValueError as e:
             return {'error': "Error parsing '%s': %s" % (spec_fn, e.args[0])}
         dist = rpm.expandMacro("%{dist}")
         release = spec.sourceHeader['release']
