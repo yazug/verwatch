@@ -1,5 +1,5 @@
-import verwatch.core
 import verwatch.conf
+import verwatch.core
 
 import copy
 import os
@@ -96,8 +96,7 @@ def test_pkg_conf_filter_existing(pkg_conf, vers):
     vers_diff = verwatch.core.diff_versions(vers, new_vers)
     filtered_pkg_conf = verwatch.core.filter_pkg_conf_existing_only(
         copy.deepcopy(pkg_conf), vers_diff)
-    assert filtered_pkg_conf['packages'] == \
-    [
+    assert filtered_pkg_conf['packages'] == [
         {
             "name": "bar",
             "releases": [
@@ -107,11 +106,12 @@ def test_pkg_conf_filter_existing(pkg_conf, vers):
                 },
                 {
                     "name": "release-grape",
-                    "repos": [{"branches": ["v2"], "repo": "next" }]
+                    "repos": [{"branches": ["v2"], "repo": "next"}]
                 }
             ]
         }
     ]
+
 
 def test_pkg_conf_filter_existing_error_change(pkg_conf, vers):
     new_vers = copy.deepcopy(vers)
