@@ -1,13 +1,13 @@
 packages:
 - name: openstack-nova
   releases:
-  - name: grizzly
+  - name: kilo
     repos:
-    - branches: [el6-grizzly, f19]
+    - branches: [kilo, f22]
       repo: fedora dist
-  - name: havana
+  - name: juno
     repos:
-    - branches: [el6-havana]
+    - branches: [juno, f21]
       repo: fedora dist
 repos:
   fedora dist:
